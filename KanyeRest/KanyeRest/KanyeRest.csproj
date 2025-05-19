@@ -14,4 +14,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KanyeRest.Application\KanyeRest.Application.csproj" />
+    <ProjectReference Include="..\KanyeRest.Domain\KanyeRest.Domain.csproj" />
+    <ProjectReference Include="..\KanyeRest.Infrastructure\KanyeRest.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
