@@ -1,4 +1,5 @@
-﻿using KanyeRest.Domain.Model;
+﻿using KanyeRest.Application.Services;
+using KanyeRest.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanyeRest.Controllers
@@ -6,45 +7,57 @@ namespace KanyeRest.Controllers
     [ApiController]
     [Route("kanye")]
     public class KanyeController : ControllerBase
-    {        
-        public KanyeController()
-        {
+    {
+        private readonly IKanyeService _kanyeService;
 
+        public KanyeController(IKanyeService kanyeService)
+        {
+            _kanyeService = kanyeService;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(KanyeResponse))]
         public IActionResult Get()
         {
-            return Ok();
+            var info = _kanyeService.GetInfo();
+
+            return Ok(info);
         }
 
         [HttpGet("age")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         public IActionResult GetAge()
         {
-            return Ok();
+            var info = _kanyeService.GetInfo();
+
+            return Ok(info.Age);
         }
 
         [HttpGet("name")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-        public IActionResult GetName() 
+        public IActionResult GetName()
         {
-            return Ok();
+            var info = _kanyeService.GetInfo();
+
+            return Ok(info.Name);
         }
 
-        [HttpGet]
+        [HttpGet("bio")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         public IActionResult GetBio() 
         {
-            return Ok();
+            var info = _kanyeService.GetInfo();
+
+            return Ok(info.Biography);
         }
 
-        [HttpGet]
+        [HttpGet("quote")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
-        public IActionResult GetRandomQuote()
+        public async Task<IActionResult> GetRandomQuote()
         {
-            return Ok();
+            var quote = await _kanyeService.GetQuoteAsync();
+
+            return Ok(quote);
         }
     }
 }
